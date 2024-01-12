@@ -1,0 +1,45 @@
+The windows Installer Service could not be acessed .
+This can occur if you are running windows in safe node or it is not 
+correctly insstalled .
+const jwt = require('jsonwebtoken');
+
+// Secret key for signing and verifying the JWT
+const secretKey = 'your_secret_key';
+
+// Function to generate a forget password token
+function generateForgetPasswordToken(email) {
+  const expirationTime = '1h'; // Set expiration time to 1 hour
+
+  const token = jwt.sign({ email }, secretKey, { expiresIn: expirationTime });
+  return token;
+}
+
+// Function to verify and decode the forget password token
+function verifyForgetPasswordToken(token) {
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    return decoded;
+  } catch (error) {
+    // Token verification failed (expired or tampered)
+    return null;
+  }
+}
+
+// Example usage:
+const userEmailAddress = 'user@example.com';
+const forgetPasswordToken = generateForgetPasswordToken(userEmailAddress);
+
+// Send the forgetPasswordToken as part of the link to the user's email
+
+// On the password reset page, when handling the token:
+const receivedTokenFromLink = 'token_from_url_parameter';
+const decodedToken = verifyForgetPasswordToken(receivedTokenFromLink);
+
+if (decodedToken) {
+  // Token is valid, allow the user to reset their password
+  const userEmail = decodedToken.email;
+  console.log(`Allowing password reset for user with email: ${userEmail}`);
+} else {
+  // Token is either expired or invalid
+  console.log('Invalid or expired token');
+}

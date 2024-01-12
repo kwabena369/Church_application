@@ -1,0 +1,7 @@
+{
+  "extends": "../.nuxt/tsconfig.server.json",
+  "compilerOptions": {
+    "types": ["node", "bcryptjs","jsonwebtoken"], // Add "bcryptjs" here
+    // Other TypeScript compiler options...
+  },
+}

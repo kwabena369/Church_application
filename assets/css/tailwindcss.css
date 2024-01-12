@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bars{
+     @apply
+     bg-gradient-to-r
+      from-rose-400
+     via-fuchsia-500 
+     p-1
+     rounded-3xl
+    to-indigo-500 w-12 h-1
+}
